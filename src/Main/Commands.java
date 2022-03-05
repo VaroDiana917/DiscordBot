@@ -7,7 +7,12 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class Commands extends ListenerAdapter {
+    private static RPGGame rpgGame = new RPGGame();
     public String prefix = "!";
+
+    public static RPGGame getRpgGame() {
+        return rpgGame;
+    }
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
@@ -32,17 +37,15 @@ public class Commands extends ListenerAdapter {
 
 
         if (args[0].equalsIgnoreCase(prefix+"rpg")){
-//            event.getMessage().addReaction("\uD83C\uDDEA").queue();
-//            event.getMessage().addReaction("Ⓜ️").queue();
-//            event.getMessage().addReaction("\uD83C\uDDED").queue();
-
             EmbedBuilder embedBuilder = new EmbedBuilder();
-            RPGDungeon rpgDungeon = new RPGDungeon(Difficulty.MEDIUM);
 
             embedBuilder.setTitle("Welcome to the Dungeon!", "");
+            embedBuilder.setDescription("Choose the difficulty of the fight:");
 
+            embedBuilder.addField("Easy", "Press \uD83C\uDDEA", false);
+            embedBuilder.addField("Medium", "Press Ⓜ️", false);
+            embedBuilder.addField("Hard", "Press \uD83C\uDDED", false);
 
-            //event.getChannel().sendMessageEmbeds(embedBuilder.build()).queue();
 
 
             event.getChannel().sendMessageEmbeds(embedBuilder.build()).queue(message -> {

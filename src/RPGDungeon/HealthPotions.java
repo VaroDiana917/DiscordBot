@@ -1,37 +1,37 @@
 package RPGDungeon;
 
 public class HealthPotions {
-    private int numHealthPotions;
-    private int healthPotionHealAmount;
-    private int healthPotionDropChance;
+    private Integer numHealthPotions;
+    private Integer healthPotionHealAmount;
+    private Integer healthPotionDropChance;
 
-    public HealthPotions(int numHealthPotions, int healthPotionHealAmount, int healthPotionDropChance) {
+    public HealthPotions(Integer numHealthPotions, Integer healthPotionHealAmount, Integer healthPotionDropChance) {
         this.numHealthPotions = numHealthPotions;
         this.healthPotionHealAmount = healthPotionHealAmount;
         this.healthPotionDropChance = healthPotionDropChance;
     }
 
-    public int getNumHealthPotions() {
+    public Integer getNumHealthPotions() {
         return numHealthPotions;
     }
 
-    public void setNumHealthPotions(int numHealthPotions) {
+    public void setNumHealthPotions(Integer numHealthPotions) {
         this.numHealthPotions = numHealthPotions;
     }
 
-    public int getHealthPotionHealAmount() {
+    public Integer getHealthPotionHealAmount() {
         return healthPotionHealAmount;
     }
 
-    public void setHealthPotionHealAmount(int healthPotionHealAmount) {
+    public void setHealthPotionHealAmount(Integer healthPotionHealAmount) {
         this.healthPotionHealAmount = healthPotionHealAmount;
     }
 
-    public int getHealthPotionDropChance() {
+    public Integer getHealthPotionDropChance() {
         return healthPotionDropChance;
     }
 
-    public void setHealthPotionDropChance(int healthPotionDropChance) {
+    public void setHealthPotionDropChance(Integer healthPotionDropChance) {
         this.healthPotionDropChance = healthPotionDropChance;
     }
 }

@@ -2,10 +2,10 @@ package RPGDungeon;
 
 public class Player {
     public boolean playerDead;
-    private int playerHealth;
-    private int playerAttackDamage;
+    private Integer playerHealth;
+    private Integer playerAttackDamage;
 
-    public Player(int playerHealth, int playerAttackDamage) {
+    public Player(Integer playerHealth, Integer playerAttackDamage) {
         this.playerDead = false;
         this.playerHealth = playerHealth;
         this.playerAttackDamage = playerAttackDamage;
@@ -19,19 +19,19 @@ public class Player {
         this.playerDead = playerDead;
     }
 
-    public int getPlayerHealth() {
+    public Integer getPlayerHealth() {
         return playerHealth;
     }
 
-    public void setPlayerHealth(int playerHealth) {
+    public void setPlayerHealth(Integer playerHealth) {
         this.playerHealth = playerHealth;
     }
 
-    public int getPlayerAttackDamage() {
+    public Integer getPlayerAttackDamage() {
         return playerAttackDamage;
     }
 
-    public void setPlayerAttackDamage(int playerAttackDamage) {
+    public void setPlayerAttackDamage(Integer playerAttackDamage) {
         this.playerAttackDamage = playerAttackDamage;
     }
 }
