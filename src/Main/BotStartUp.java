@@ -25,6 +25,7 @@ public class BotStartUp {
             jda.setStatus(OnlineStatus.ONLINE); //Do not set to invisible or offline
 
             jda.addEventListeners(new Commands());
+            jda.addEventListeners(new MessageReactionsAdded());
 
             jda.build();
 

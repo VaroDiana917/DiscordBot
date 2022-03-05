@@ -32,19 +32,26 @@ public class Commands extends ListenerAdapter {
 
 
         if (args[0].equalsIgnoreCase(prefix+"rpg")){
+//            event.getMessage().addReaction("\uD83C\uDDEA").queue();
+//            event.getMessage().addReaction("Ⓜ️").queue();
+//            event.getMessage().addReaction("\uD83C\uDDED").queue();
+
             EmbedBuilder embedBuilder = new EmbedBuilder();
-            event.getMessage().addReaction("\uD83C\uDDEA").queue();
-            event.getMessage().addReaction("Ⓜ️").queue();
-            event.getMessage().addReaction("\uD83C\uDDED").queue();
             RPGDungeon rpgDungeon = new RPGDungeon(Difficulty.MEDIUM);
+
             embedBuilder.setTitle("Welcome to the Dungeon!", "");
-            //embedBuilder.setDescription("");
 
-            //embedBuilder.addField("Play Ping-Pong", "!ping", false);
 
-            event.getChannel().sendMessageEmbeds(embedBuilder.build()).queue();
+            //event.getChannel().sendMessageEmbeds(embedBuilder.build()).queue();
 
+
+            event.getChannel().sendMessageEmbeds(embedBuilder.build()).queue(message -> {
+                message.addReaction("\uD83C\uDDEA").queue();
+                message.addReaction("Ⓜ️").queue();
+                message.addReaction("\uD83C\uDDED").queue();
+            });
             embedBuilder.clear();
+
         }
 
 
