@@ -1,6 +1,7 @@
 package Main;
 
 
+import RPGDungeon.*;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -26,6 +27,27 @@ public class Commands extends ListenerAdapter {
             embedBuilder.addField("Play Ping-Pong", "!ping", false);
 
             event.getChannel().sendMessageEmbeds(embedBuilder.build()).queue();
+            embedBuilder.clear();
         }
+
+
+        if (args[0].equalsIgnoreCase(prefix+"rpg")){
+            EmbedBuilder embedBuilder = new EmbedBuilder();
+            event.getMessage().addReaction("\uD83C\uDDEA").queue();
+            event.getMessage().addReaction("Ⓜ️").queue();
+            event.getMessage().addReaction("\uD83C\uDDED").queue();
+            RPGDungeon rpgDungeon = new RPGDungeon(Difficulty.MEDIUM);
+            embedBuilder.setTitle("Welcome to the Dungeon!", "");
+            //embedBuilder.setDescription("");
+
+            //embedBuilder.addField("Play Ping-Pong", "!ping", false);
+
+            event.getChannel().sendMessageEmbeds(embedBuilder.build()).queue();
+
+            embedBuilder.clear();
+        }
+
+
+
     }
 }
