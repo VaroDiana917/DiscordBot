@@ -14,19 +14,18 @@ public class Commands extends ListenerAdapter {
         String[] args = event.getMessage().getContentRaw().split(" ");
 
         if (args[0].equalsIgnoreCase(prefix+"ping")){
-            //event.getMessage().reply("Pong!").queue(); ->for replying
-            event.getChannel().sendMessage("Pong!").queue();
+            event.getMessage().reply("Pong!").queue(); //->for replying
+            //event.getChannel().sendMessage("Pong!").queue(); //->for sending a normal message
         }
 
         if (args[0].equalsIgnoreCase(prefix+"help")){
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle("Commands List:", "");
-            embedBuilder.setDescription("A list of all of the commands:");
+            embedBuilder.setDescription("A list of all of the commands");
 
-            embedBuilder.addField("Field title", "A description", false);
+            embedBuilder.addField("Play Ping-Pong", "!ping", false);
 
             event.getChannel().sendMessageEmbeds(embedBuilder.build()).queue();
-
         }
     }
 }

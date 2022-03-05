@@ -12,6 +12,7 @@
 
 # Package Files #
 *.jar
+!JDA-5.0.0-alpha.9-withDependencies.jar
 *.war
 *.nar
 *.ear
