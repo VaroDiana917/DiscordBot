@@ -7,12 +7,13 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class Commands extends ListenerAdapter {
-    private static RPGGame rpgGame = new RPGGame();
+    private static RPGGame rpgGame;
     public String prefix = "!";
 
     public static RPGGame getRpgGame() {
         return rpgGame;
     }
+
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
@@ -30,6 +31,7 @@ public class Commands extends ListenerAdapter {
             embedBuilder.setDescription("A list of all of the commands");
 
             embedBuilder.addField("Play Ping-Pong", "!ping", false);
+            embedBuilder.addField("Play an RPG Game; Defeat the enemy!", "!rpg", false);
 
             event.getChannel().sendMessageEmbeds(embedBuilder.build()).queue();
             embedBuilder.clear();
@@ -37,6 +39,7 @@ public class Commands extends ListenerAdapter {
 
 
         if (args[0].equalsIgnoreCase(prefix+"rpg")){
+            rpgGame = new RPGGame();
             EmbedBuilder embedBuilder = new EmbedBuilder();
 
             embedBuilder.setTitle("Welcome to the Dungeon!", "");

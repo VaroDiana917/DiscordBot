@@ -9,12 +9,18 @@ public class Enemy {
     private Integer enemyHealth;
     private String enemy;
 
-    public Enemy(Integer maxEnemyHealth, Integer enemyAttackDamage) {
+    public Enemy(Integer enemyHealth, Integer enemyAttackDamage, Difficulty difficulty) {
         Random random = new Random();
-        String[] enemies = {"Skeleton", "Zombie", "Warrior", "Assassin"};
 
-        this.enemy = enemies[random.nextInt(enemies.length)];
-        this.enemyHealth = random.nextInt(maxEnemyHealth);
+        String[] easyEnemies = {"Animated Armor", "Archer", "Ash Zombie", "Avatar of Death", "Awakened Tree", "Bandit", "Black Bear", "Black Viper", "Ghost"};
+        String[] mediumEnemies = {"Animated Statue", "Archmage", "Beholder", "Iron Golem","Necromancer", "Nightwalker", "Troll", "Vampire"};
+        String[] hardEnemies = {"Ancient Black Dragon", "Death Knight","Demogorgon", "Elder Tempest", "Kraken", "Leviathan", "Warforged Colossus"};
+
+        if (difficulty==Difficulty.HARD) this.enemy = hardEnemies[random.nextInt(hardEnemies.length)];
+        else if (difficulty==Difficulty.EASY) this.enemy = easyEnemies[random.nextInt(easyEnemies.length)];
+        else this.enemy = mediumEnemies[random.nextInt(mediumEnemies.length)];
+        //this.enemyHealth = random.nextInt(maxEnemyHealth);
+        this.enemyHealth = enemyHealth;
         this.enemyAttackDamage = enemyAttackDamage;
     }
 

@@ -20,15 +20,21 @@ public class RPGGame {
 //        }
 //    }
 
-
-    public RPGGame() {}
+    public RPGGame() {
+        this.player = new Player(100, 50);
+        this.healthPotions = new HealthPotions(3,25,30);
+    }
 
     public void setDifficulty(Difficulty difficulty) {
         this.difficulty = difficulty;
+        if(difficulty == Difficulty.EASY){
+            this.enemy = new Enemy(75, 25, this.difficulty);
+        }
         if(difficulty == Difficulty.MEDIUM){
-            this.player = new Player(100, 50);
-            this.enemy = new Enemy(75, 25);
-            this.healthPotions = new HealthPotions(3,25,50);
+            this.enemy = new Enemy(100, 50, this.difficulty);
+        }
+        if(difficulty == Difficulty.HARD){
+            this.enemy = new Enemy(125, 50, this.difficulty);
         }
     }
 
@@ -61,7 +67,7 @@ public class RPGGame {
 
             event.getChannel().sendMessageEmbeds(embedBuilder.build()).queue(message -> {
                 message.addReaction("⚔️").queue();
-                message.addReaction("♥️").queue();
+                message.addReaction("\uD83D\uDC96").queue();
                 message.addReaction("\uD83D\uDCA8").queue();
             });
 
@@ -71,8 +77,31 @@ public class RPGGame {
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle("Congrats! You won!", "");
             embedBuilder.setDescription("You defeated the "+enemy.getEnemy());
+            Random random = new Random();
+            if(random.nextInt(100)<healthPotions.getHealthPotionDropChance()) {
+                embedBuilder.addField("", "The " + enemy.getEnemy() + " dropped a health potion!", false);
+                healthPotions.setNumHealthPotions(healthPotions.getNumHealthPotions()+1);
+            }
+
+
             event.getChannel().sendMessageEmbeds(embedBuilder.build()).queue();
             embedBuilder.clear();
+
+
+            EmbedBuilder embedBuilderPlayAgain = new EmbedBuilder();
+
+            embedBuilderPlayAgain.setTitle("Play Again?");
+
+            embedBuilderPlayAgain.addField("Easy", "Press \uD83C\uDDEA", false);
+            embedBuilderPlayAgain.addField("Medium", "Press Ⓜ️", false);
+            embedBuilderPlayAgain.addField("Hard", "Press \uD83C\uDDED", false);
+
+            event.getChannel().sendMessageEmbeds(embedBuilderPlayAgain.build()).queue(message -> {
+                message.addReaction("\uD83C\uDDEA").queue();
+                message.addReaction("Ⓜ️").queue();
+                message.addReaction("\uD83C\uDDED").queue();
+            });
+            embedBuilderPlayAgain.clear();
         }
         else if (player.getPlayerHealth()<=0){
             EmbedBuilder embedBuilder = new EmbedBuilder();
@@ -95,8 +124,57 @@ public class RPGGame {
         embedBuilder.addField("You strike the "+enemy.getEnemy()+" for "+damageDealt,"", false);
         embedBuilder.addField("The "+ enemy.getEnemy()+ " strikes back for "+damageTaken,"", false);
         event.getChannel().sendMessageEmbeds(embedBuilder.build()).queue();
-        //embedBuilder.clear();
+        embedBuilder.clear();
         playGame(event);
 
+    }
+
+    public void heal(MessageReactionAddEvent event){
+        if(healthPotions.getNumHealthPotions()>0) {
+            player.setPlayerHealth(player.getPlayerHealth() + healthPotions.getHealthPotionHealAmount());
+            healthPotions.setNumHealthPotions(healthPotions.getNumHealthPotions()-1);
+
+            EmbedBuilder embedBuilder = new EmbedBuilder();
+            embedBuilder.addField("You drink a health potion, healing yourself for "+ healthPotions.getHealthPotionHealAmount(),
+                    "You now have "+player.getPlayerHealth()+"HP♥\n" +
+                            "You have "+ healthPotions.getNumHealthPotions()+" health potions left",
+                    false);
+            event.getChannel().sendMessageEmbeds(embedBuilder.build()).queue();
+            embedBuilder.clear();//TODO
+            playGame(event);
+        }
+        else{
+            EmbedBuilder embedBuilder = new EmbedBuilder();
+            embedBuilder.addField("You have no health potions left!",
+                    "Defeat enemies for a chance to get one!",
+                    false);
+            event.getChannel().sendMessageEmbeds(embedBuilder.build()).queue();
+            embedBuilder.clear();//TODO
+            playGame(event);
+        }
+    }
+
+    public void dash(MessageReactionAddEvent event){
+        EmbedBuilder embedBuilder = new EmbedBuilder();
+        embedBuilder.addField("You run away from the "+enemy.getEnemy(),
+                "",
+                false);
+        event.getChannel().sendMessageEmbeds(embedBuilder.build()).queue();
+        embedBuilder.clear();//TODO
+
+        EmbedBuilder embedBuilderPlayAgain = new EmbedBuilder();
+
+        embedBuilder.setTitle("Play Again?");
+
+        embedBuilderPlayAgain.addField("Easy", "Press \uD83C\uDDEA", false);
+        embedBuilderPlayAgain.addField("Medium", "Press Ⓜ️", false);
+        embedBuilderPlayAgain.addField("Hard", "Press \uD83C\uDDED", false);
+
+        event.getChannel().sendMessageEmbeds(embedBuilderPlayAgain.build()).queue(message -> {
+            message.addReaction("\uD83C\uDDEA").queue();
+            message.addReaction("Ⓜ️").queue();
+            message.addReaction("\uD83C\uDDED").queue();
+        });
+        embedBuilderPlayAgain.clear();
     }
 }
